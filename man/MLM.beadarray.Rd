@@ -82,17 +82,18 @@ Ryung S. Kim and Juan Lin
 %%Kim, R. and Lin, J. (2011). Multi-level mixed effects models for bead arrays. Bionformatics, vol. 27, number 5, pages: 633-640.
 %%}
 \examples{
+require(beadarrayExampleData)
 data(exampleSummaryData)
-exampleSummaryDatalog2 <- channel(exampleSummaryData, "G")
+exampleSummaryDatalog2 <- channel(exampleSummaryData, "G")[1:40,]
 
 exampleSummaryDataNorm <- normaliseIllumina(exampleSummaryDatalog2, 
-method = "quantile", transform = "none")
+method = "quantile", transform = "none")[1:40,]
 
-    eSet <- na.omit(exprs(exampleSummaryDataNorm))[200:300,]
+    eSet <- na.omit(exprs(exampleSummaryDataNorm))[1:40,]
     
-    seSet <- na.omit(se.exprs(exampleSummaryDataNorm))[200:300,]
+    seSet <- na.omit(se.exprs(exampleSummaryDataNorm))[1:40,]
     
-    nSet <- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)[200:300,]
+    nSet <- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)[1:40,]
     
      stderrs<-seSet/sqrt(nSet)
 

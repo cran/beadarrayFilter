@@ -96,21 +96,21 @@ Anyiawung Chiara Forcheh, Geert Verbeke, Adetayo Kasim, Dan Lin, Ziv Shkedy, Wil
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 %%}
 \examples{
+require(beadarrayExampleData)
 data(exampleSummaryData)
-exampleSummaryDatalog2 <- channel(exampleSummaryData, "G")
+exampleSummaryDatalog2 <- channel(exampleSummaryData, "G")[1:40,]
 exampleSummaryDataNorm <- normaliseIllumina(exampleSummaryDatalog2, 
-method = "quantile", transform = "none")
-aaa<-na.omit(data.frame(I(rownames(exprs(exampleSummaryDataNorm))),
-exprs(exampleSummaryDataNorm)))[200:300,]
-ProbeID <- aaa[,1]
-    eSet <- na.omit(exprs(exampleSummaryDataNorm))[200:300,]
-    stddev <- na.omit(se.exprs(exampleSummaryDataNorm))[200:300,]
-    nSet <- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)[200:300,]
+method = "quantile", transform = "none")[1:40,]
+aaa<-na.omit(data.frame(I(rownames(exprs(exampleSummaryDataNorm))),exprs(exampleSummaryDataNorm)))[1:40,]
+ProbeID <- aaa[,1][1:40]
+    eSet <- na.omit(exprs(exampleSummaryDataNorm))[1:40,]
+    stddev <- na.omit(se.exprs(exampleSummaryDataNorm))[1:40,]
+    nSet <- na.omit(attributes(exampleSummaryDataNorm)$assayData$nObservations)[1:40,]
     seSet<-stddev/sqrt(nSet)
-    iccResults<-iccFun(eSet,seSet,nSet,ProbeID =ProbeID,iccQuant=c(0,0.25,0.5,1),
-    diffIcc=TRUE,keepData=TRUE)
-    str(iccResults)
-    head(iccResults$icc)
+    iccResults<-iccFun(eSet,seSet,nSet,ProbeID =ProbeID ,iccQuant=1,
+    diffIcc=FALSE,keepData=TRUE)
+    %%str(iccResults)
+    %%head(iccResults$icc)
     informProbeNames<- subset(iccResults$icc, iccResults$icc[,2]>=0.5)[,1]
 filterDataNorm<-exampleSummaryDataNorm[informProbeNames,]
 }

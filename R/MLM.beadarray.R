@@ -57,7 +57,7 @@ function(sig,stderr,nbeads,groups,var.equal = FALSE,max.iteration=20,epsilon=1e-
   for(k in 1:K){v <- cbind(v,1/rowSums(w[[k]]))}
   if(var.equal == FALSE) { res<-(c(theta=list(theta),tau2=tau2,sigma2=sigma2))}
   if(var.equal == TRUE) { res<-(c(theta=list(theta),tau2=list(tau2common),sigma2=sigma2))}
-  print("Computing the Wald test statistics...")
+  ###print("Computing the Wald test statistics...")
   if(K == 2) {
     t.statistics=(theta[,2]-theta[,1])/sqrt(v[,1]+v[,2])
     res<- c(res,t.statistics=list(t.statistics),method=method,convergence=list(!convergence.check))

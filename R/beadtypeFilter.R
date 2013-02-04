@@ -1,7 +1,7 @@
-beadFilter <-
+beadtypeFilter <-
 function(beadsum,Quantile=1,keepData=TRUE,delta=0.5)
 {
-allo<-c("ExpressionSetIllumina","data.frame")
+allo<-c("ExpressionSetIllumina","LumiBatch", "data.frame")
 checkclass <- class(beadsum)
 if(!(checkclass %in% allo)) {stop("beadsum Object must be an ExpressionSetIllumina or a data.frame ")}
 else 
@@ -16,6 +16,17 @@ aaa<-na.omit(data.frame(I(rownames(exprs(beadsum))),exprs(beadsum)))
     seSet<-stdev/sqrt(nSet)
     ProbeID <- aaa[,1]
     #group <- c(1:dim(eSet)[2])
+iccResults<-iccFun(eSet=eSet,seSet,nSet=nSet,ProbeID =ProbeID,iccQuant=Quantile,diffIcc=FALSE,keepData=FALSE)
+ informID<- subset(iccResults$icc, iccResults$icc[,2]>=delta)[,1]
+x<-beadsum[informID, ]
+}
+else if (checkclass =="LumiBatch"){ 
+
+eSet <- exprs(beadsum)
+seSet<- se.exprs(beadsum) ##this data has stderr and not stdev
+nSet <- beadNum(beadsum)
+ #group <- c(1:dim(eSet)[2])
+ProbeID =fData(beadsum)$ProbeID 
 iccResults<-iccFun(eSet=eSet,seSet,nSet=nSet,ProbeID =ProbeID,iccQuant=Quantile,diffIcc=FALSE,keepData=FALSE)
  informID<- subset(iccResults$icc, iccResults$icc[,2]>=delta)[,1]
 x<-beadsum[informID, ]

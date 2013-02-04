@@ -1,8 +1,8 @@
 Package: beadarrayFilter
 Type: Package
 Title: Bead filtering for Illumina bead arrays
-Version: 1.0
-Date: 2012-04-17
+Version: 1.1.0
+Date: 2013-02-04
 Author: Anyiawung Chiara Forcheh, Geert Verbeke, Adetayo Kasim, Dan
         Lin, Ziv Shkedy, Willem Talloen, Hinrich WH Gohlmann, Lieven
         Clement.
@@ -12,9 +12,9 @@ Description: This package contains functions to fit the filtering model
         intra-cluster correlation (ICC). Model fitting is done using
         the modified version of the ``MLM.beadarray" function of Kim
         and Lin (2011).
-Depends: beadarray, beadarrayExampleData, RColorBrewer
+Depends: beadarray, RColorBrewer
+Suggests: beadarrayExampleData, lumi
 License: GPL-2
-Lazyload: yes
-Packaged: 2012-07-04 08:19:56 UTC; u0056989
+Packaged: 2013-02-04 16:58:04 UTC; u0056989
 Repository: CRAN
-Date/Publication: 2012-07-04 15:15:37
+Date/Publication: 2013-02-07 20:25:27

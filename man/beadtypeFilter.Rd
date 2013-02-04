@@ -1,24 +1,24 @@
-\name{beadFilter}
-\alias{beadFilter}
+\name{beadtypeFilter}
+\alias{beadtypeFilter}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Filter Illumina bead arrays
 %%  ~~function to do ... ~~
+Filter Illumina bead arrays
 }
 \description{
-This is a wrapper function for the iccFun function and it implements the filtering method of Forcheh et al. (2012). 
-It takes a normalized ExpressionSetIllumina object or a normalized data.frame and returns  the names of the informative bead types. 
-Optionally, the filtered ExpressionSetIllumina object or the filtered data.frame can also be returned.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This is a wrapper function for the iccFun function and it implements the filtering method of Forcheh et al. (2012). 
+It takes a normalized ExpressionSetIllumina object,a LumiBatch object or a normalized data.frame and returns  the names of the informative bead types. 
+Optionally, the filtered ExpressionSetIllumina object or the filtered data.frame can also be returned.
 }
 \usage{
-beadFilter(beadsum, Quantile = 1, keepData = TRUE, delta = 0.5)
+beadtypeFilter(beadsum, Quantile = 1, keepData = TRUE, delta = 0.5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{beadsum}{
 %%     ~~Describe \code{beadsum} here~~
-A normalized data object, which can be an ExpressionSetIllumina or a normalized data.frame. 
+A normalized data object, which can be an ExpressionSetIllumina, LumiBatch or a normalized data.frame.
 }
   \item{Quantile}{
 %%     ~~Describe \code{Quantile} here~~
@@ -47,10 +47,6 @@ the appropriate data normalization prior to submitting the ExpressionSetIllumina
 for more on how to obtain a normalized ExpressionSetIllumina object. If a data.frame  is used, make sure that the column names are similarly to the ones from BeadStudio:
 column names for bead averages should end with "Signal", standard errors should end with  "STDERR" and number of beads used for the data sumarization
 should end with "NBEADS". 
-
-%It takes  a normalized ExpressionSetIllumina object or a normalized data.frame and returns filtered data.
-%%filtering model of Forcheh et al. (2012), derives the ICCs and declares the informative bead types by thresholding the ICC at a specified number summary
-%%at the cutoff threshold, delta.
 }
 \value{
 %%  ~Describe the value returned
@@ -77,31 +73,32 @@ Statistical Applications in Genetics and Molecular Biology, Berkeley Electronic 
 
 Kim, R.S. and Lin, J. (2011). Multi-level mixed effects models for bead
     arrays. Bioinformatics, 27(5):633-640.
-    }
+}
 \author{
 %%  ~~who you are~~
 Anyiawung Chiara Forcheh, Geert Verbeke, Adetayo Kasim, Dan Lin, Ziv Shkedy, Willem Talloen, Hinrich WH Gohlmann, Lieven Clement.
 }
-%%\note{
+%\note{
 %%  ~~further notes~~
-%%}
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-%%\seealso{
+%\seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-%%}
+%}
 \examples{
+require(beadarrayExampleData)
 data(exampleSummaryData)
 exampleSummaryDataNorm <- normaliseIllumina(channel(exampleSummaryData, "G"),
 method = "quantile", transform = "none")
-exampleSumDataNorm <- exampleSummaryDataNorm[200:300,]
-iccResults<-beadFilter(exampleSumDataNorm ,Quantile=1,keepData=TRUE,delta=0.5)
-head(iccResults$InformProbeNames)
+iccResults<-beadtypeFilter(exampleSummaryDataNorm[1:100,],Quantile=1,keepData=FALSE,delta=0.5)
+%%head(iccResults$InformProbeNames)
 %%head(fData(iccResults$informData))
-dim(exprs(iccResults$informData)) 
+%%dim(exprs(iccResults$informData)) 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ Filter }
-\keyword{ Beads }% __ONLY ONE__ keyword per line
+\keyword{ Bead types }% __ONLY ONE__ keyword per line
+
